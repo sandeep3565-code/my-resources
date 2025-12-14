@@ -1,6 +1,7 @@
 name: Build
 
 on:
+  # Automatic triggers
   push:
     branches:
       - develop
@@ -10,23 +11,32 @@ on:
       - develop
       - master
 
+  # Manual trigger
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "Branch or tag to build (e.g. develop, feature/foo, v2025.10)"
+        required: true
+        default: "develop"
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout source
+      - name: Checkout selected ref
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.ref || github.ref_name }}
 
-      - name: Show environment
+      - name: Show build context
         run: |
-          uname -a
-          gcc --version || true
+          echo "Building ref: ${{ github.event.inputs.ref || github.ref_name }}"
+          git branch -a
+          git describe --tags || true
 
       - name: Build (placeholder)
         run: |
-          echo "Running build..."
-          # put your real build command here
-          # example:
+          echo "Running build for selected ref..."
+          # Replace with real build command
           # make all
-
