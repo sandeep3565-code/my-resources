@@ -16,5 +16,5 @@ targets:
 		tar zip unzip wget lsb-release \
 		file xz-utils libssl-dev bzip2 \
 		build-essential device-tree-compiler \
-		bc u-boot-tools jq liblzo2-2 \
+		bc u-boot-tools jq liblzo2-2 libgnutls28-dev \
 		cpio autoconf dosfstools rsync passwd
